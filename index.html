@@ -670,18 +670,22 @@
 
 
 
-              <form action="#" class="p-5 bg-white">
+              <form id="requirementForm" class="p-5 bg-white">
 
                 <h2 class="h4 mb-5">Contact Form</h2> 
 
                 <div class="row form-group">
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <label class="text-black" for="fname">First Name</label>
-                    <input type="text" id="fname" class="form-control">
+                  <div class="col-md-12">
+                    <label class="text-black" for="lname">Name</label>
+                    <input type="text"  name="name" required class="form-control">
                   </div>
-                  <div class="col-md-6">
-                    <label class="text-black" for="lname">Last Name</label>
-                    <input type="text" id="lname" class="form-control">
+                </div>
+
+                <div class="row form-group">
+
+                  <div class="col-md-12">
+                    <label class="text-black" for="Contact">Contact Number</label> 
+                    <input type="tel" name="phone" required class="form-control">
                   </div>
                 </div>
 
@@ -689,22 +693,15 @@
 
                   <div class="col-md-12">
                     <label class="text-black" for="email">Email</label> 
-                    <input type="email" id="email" class="form-control">
+                    <input type="email"  name="email" required class="form-control">
                   </div>
                 </div>
 
-                <div class="row form-group">
-
-                  <div class="col-md-12">
-                    <label class="text-black" for="subject">Subject</label> 
-                    <input type="subject" id="subject" class="form-control">
-                  </div>
-                </div>
 
                 <div class="row form-group">
                   <div class="col-md-12">
-                    <label class="text-black" for="message">Message</label> 
-                    <textarea name="message" id="message" cols="30" rows="7" class="form-control" placeholder="Write your notes or questions here..."></textarea>
+                    <label class="text-black" for="message">Requirement</label> 
+                    <textarea name="requirement" cols="30" rows="7" class="form-control" placeholder="Let us know about your requirement..."></textarea>
                   </div>
                 </div>
 
@@ -716,6 +713,27 @@
 
 
               </form>
+              <script>
+                const form = document.getElementById('requirementForm');
+                form.addEventListener('submit', e => {
+                  e.preventDefault();
+                  const formData = new FormData(form);
+            
+                  fetch('https://script.google.com/macros/s/AKfycbzT4d3Sjp2hxfY2cBIZW2of2ySq-U2OAIY0n6L0jScdIBlwk5Lmj6_6McGeb1rETQZQ/exec', {
+                    method: 'POST',
+                    body: formData,
+                  })
+                  .then(response => response.text())
+                  .then(result => {
+                    alert('Thank you for your interest. We will connect with you soon.');
+                    form.reset();
+                  })
+                  .catch(error => {
+                    alert('There was an error submitting the form.');
+                    console.error(error);
+                  });
+                });
+              </script>
             </div>
 
           </div>
@@ -815,6 +833,5 @@
     <script src="js/main.js"></script>
 
     
-
   </body>
   </html>
